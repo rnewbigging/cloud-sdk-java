@@ -244,7 +244,7 @@
         }
       }
     },
-    "value" : 5.208260262196433,
+    "value" : 3.9714162905652275,
     "weight" : 1.0,
     "confidence" : 9.645390070921987,
     "usedValues" : [ {
@@ -253,7 +253,7 @@
         "type" : "ProjectSecurityAwarenessScore",
         "name" : "How well open-source community is aware about security"
       },
-      "value" : 3.0,
+      "value" : 1.0,
       "weight" : 0.9,
       "confidence" : 10.0,
       "usedValues" : [ {
@@ -262,8 +262,8 @@
           "type" : "BooleanFeature",
           "name" : "If an open-source project has a security policy"
         },
-        "flag" : true,
-        "explanation" : [ ]
+        "flag" : false,
+        "explanation" : [ "Neither the project nor organization has a security policy" ]
       }, {
         "type" : "BooleanValue",
         "feature" : {
@@ -1289,7 +1289,7 @@
         "type" : "CommunityCommitmentScore",
         "name" : "How well open-source community commits to support an open-source project"
       },
-      "value" : 8.0,
+      "value" : 0.0,
       "weight" : 0.5,
       "confidence" : 10.0,
       "usedValues" : [ {
@@ -1298,7 +1298,7 @@
           "type" : "BooleanFeature",
           "name" : "If an open-source project is supported by a company"
         },
-        "flag" : true,
+        "flag" : false,
         "explanation" : [ ]
       }, {
         "type" : "BooleanValue",
@@ -1339,7 +1339,7 @@
           "type" : "PositiveIntegerFeature",
           "name" : "Number of commits in the last three months"
         },
-        "number" : 110,
+        "number" : 124,
         "explanation" : [ ]
       }, {
         "type" : "IntegerValue",
@@ -1347,10 +1347,10 @@
           "type" : "PositiveIntegerFeature",
           "name" : "Number of contributors in the last three months"
         },
-        "number" : 1,
+        "number" : 3,
         "explanation" : [ ]
       } ],
-      "explanation" : [ "110 commits in the last 3 months results to 10.00 points" ],
+      "explanation" : [ "124 commits in the last 3 months results to 10.00 points", "3 contributors increase the score value from 10.00 to 11.00" ],
       "isUnknown" : false,
       "isNotApplicable" : false,
       "feature" : {
@@ -1388,7 +1388,7 @@
         "type" : "ProjectPopularityScore",
         "name" : "Open-source project popularity score"
       },
-      "value" : 0.026333333333333334,
+      "value" : 0.0,
       "weight" : 0.5,
       "confidence" : 6.666666666666667,
       "usedValues" : [ {
@@ -1397,7 +1397,7 @@
           "type" : "PositiveIntegerFeature",
           "name" : "Number of stars for a GitHub repository"
         },
-        "number" : 13,
+        "number" : 0,
         "explanation" : [ ]
       }, {
         "type" : "IntegerValue",
@@ -1405,7 +1405,7 @@
           "type" : "PositiveIntegerFeature",
           "name" : "Number of watchers for a GitHub repository"
         },
-        "number" : 4,
+        "number" : 0,
         "explanation" : [ ]
       }, {
         "type" : "UnknownValue",
@@ -2727,5 +2727,5 @@
       }
     }
   },
-  "label" : [ "OssSecurityRating$SecurityLabel", "MODERATE" ]
+  "label" : [ "OssSecurityRating$SecurityLabel", "BAD" ]
 }
