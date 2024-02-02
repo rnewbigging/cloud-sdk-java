@@ -2,7 +2,7 @@ name: "Fosstars (Security)"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "10 9 * * *"
+    - cron: "30 9 * * *"
 
 jobs:
   create_fosstars_report:
