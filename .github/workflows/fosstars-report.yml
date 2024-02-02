@@ -26,7 +26,12 @@ jobs:
         run: |
           pwd
 
+      - name: "Print directory contents"
+        run: |
+            ls -la
+            ls -la ..
+        working-directory: ${{ github.workspace }}
+
       - name: "Move JSON to Fosstars folder"
         run: |
-          mv ../fosstars_rating.json .github/fosstars/fosstars_rating.json
-
+          mv ../fosstars_rating.json .github/fosstars/fosstars_rating.json    
