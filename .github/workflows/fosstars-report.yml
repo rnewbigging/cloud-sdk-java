@@ -2,7 +2,7 @@ name: "Fosstars (Security)"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 7 * * *"
+    - cron: "0 10 * * *"
 
 jobs:
   create_fosstars_report:
@@ -13,6 +13,6 @@ jobs:
       - uses: SAP/fosstars-rating-core-action@v1.14.0
         with:
           report-branch: main
-          report-file: .github/fosstars/fosstars_report.md
+          report-file: .github/fosstars/fosstars_report
           badge-file: .github/fosstars/fosstars_badge.svg
           token: "${{ secrets.GITHUB_TOKEN }}"
