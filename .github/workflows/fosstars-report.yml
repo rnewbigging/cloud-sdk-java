@@ -13,7 +13,7 @@ jobs:
       - uses: SAP/fosstars-rating-core-action@v1.14.0
         with:
           report-branch: ops/fosstars
-          report-file: .github/fosstars/
+          report-file: .github/fosstars/fosstars_report.md
           badge-file: .github/fosstars/fosstars_badge.svg
           token: "${{ secrets.GITHUB_TOKEN }}"
 
@@ -23,14 +23,6 @@ jobs:
     name: "Move JSON to Fosstars folder"
     steps:
       - uses: actions/checkout@v3
-      - name: "Print current directory"
-        run: |
-          pwd
-
-      - name: "Print directory contents"
-        run: |
-            ls -la
-            ls -la ..
 
       - name: "Move JSON to Fosstars folder"
         run: |
