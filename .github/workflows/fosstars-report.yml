@@ -2,7 +2,7 @@ name: "Fosstars (Security)"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 * * * *"
+    - cron: "50 * * * *"
 
 jobs:
   create_fosstars_report:
@@ -24,3 +24,4 @@ jobs:
       - name: "Move JSON to Fosstars folder"
         run: |
           mv fosstars_rating.json .github/fosstars/fosstars_rating.json
+        working-directory: ${{ github.workspace }}
