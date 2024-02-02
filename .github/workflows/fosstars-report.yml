@@ -27,7 +27,7 @@ jobs:
         run: |
           if [ -e fosstars_rating.json ]; then
             echo "File exists."
-            mv fosstars_rating.json .github/fosstars/fosstars_rating.json
+            mv fosstars_rating.json .github/fosstars/
           else
             echo "File does not exist."
           fi
