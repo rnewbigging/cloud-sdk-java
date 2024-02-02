@@ -2,7 +2,7 @@ name: "Fosstars (Security)"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 * * * *"
+    - cron: "30 * * * *"
 
 jobs:
   create_fosstars_report:
@@ -16,3 +16,11 @@ jobs:
           report-file: .github/fosstars/
           badge-file: .github/fosstars/fosstars_badge.svg
           token: "${{ secrets.GITHUB_TOKEN }}"
+
+  move_json_to_fosstars_folder:
+    runs-on: ubuntu-latest
+    name: "Move JSON to Fosstars folder"
+    steps:
+      - name: "Move JSON to Fosstars folder"
+        run: |
+          mv fosstars_rating.json .github/fosstars/fosstars_rating.json
