@@ -2,7 +2,7 @@ name: "Fosstars (Security)"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "50 * * * *"
+    - cron: "0 0 * * *"
 
 jobs:
   create_fosstars_report:
@@ -19,9 +19,14 @@ jobs:
 
   move_json_to_fosstars_folder:
     runs-on: ubuntu-latest
+    needs: create_fosstars_report
     name: "Move JSON to Fosstars folder"
     steps:
+      - name: "Print current directory"
+        run: |
+          pwd
+
       - name: "Move JSON to Fosstars folder"
         run: |
-          mv fosstars_rating.json .github/fosstars/fosstars_rating.json
-        working-directory: ${{ github.workspace }}
+          mv ../fosstars_rating.json .github/fosstars/fosstars_rating.json
+
