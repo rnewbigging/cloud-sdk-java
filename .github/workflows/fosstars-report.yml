@@ -53,7 +53,7 @@ jobs:
             git commit -m "Move fosstars_rating.json to .github/fosstars/"
           
             git status
-            git push rnewbigging/cloud-sdk-java ops/fosstars
+            git push origin ops/fosstars
           else
             echo "File does not exist."
             echo "json_moved=false" >> "$GITHUB_OUTPUT"
