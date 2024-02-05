@@ -13,22 +13,28 @@ jobs:
     outputs:
       json_moved: ${{ steps.move_json_to_fosstars_folder.outputs.json_moved }}
     steps:
+#      - name: Create Fosstars report
+#        uses: actions/checkout@v3
+#        uses: SAP/fosstars-rating-core-action@v1.14.0
+#        with:
+#          report-branch: ops/fosstars #TODO: Change to main
+#          report-file: .github/fosstars/fosstars_report.md
+#          badge-file: .github/fosstars/fosstars_badge.svg
+#          token: "${{ secrets.GITHUB_TOKEN }}"
+
       - name: Checkout
         uses: actions/checkout@v3
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Prepare git
-        run : |
+        run: |
           git config --global user.email "rachael.newbigging@sap.com"
           git config --global user.name "rnewbigging"
 
-      - name: Create Fosstars report
-        uses: SAP/fosstars-rating-core-action@v1.14.0
-        with:
-          report-branch: ops/fosstars #TODO: Change to main
-          report-file: .github/fosstars/fosstars_report.md
-          badge-file: .github/fosstars/fosstars_badge.svg
+      - name: Test File Creation
+        run: |
+          touch fosstars_rating.json
 
       - name: Move JSON to Fosstars folder
         id: move_json_to_fosstars_folder
