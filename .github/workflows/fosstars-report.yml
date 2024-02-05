@@ -31,9 +31,14 @@ jobs:
             echo "Working Repository: $GITHUB_REPOSITORY"
             echo "Current Branch: $GITHUB_REF"
             git status
+               
+            git config --global user.email "rachael.newbigging@sap.com"
+            git config --global user.name "rnewbigging"
           
             git add .github/fosstars/fosstars_rating.json
             git commit -m "Move fosstars_rating.json to .github/fosstars/"
+          
+            git status
             git push rnewbigging ops/fosstars
           else
             echo "File does not exist."
