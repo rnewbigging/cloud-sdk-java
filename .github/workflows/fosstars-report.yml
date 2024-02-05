@@ -11,6 +11,8 @@ jobs:
       json_moved: ${{ steps.move_json_to_fosstars_folder.outputs.moved }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: "Create Fosstars report"
         uses: SAP/fosstars-rating-core-action@v1.14.0
