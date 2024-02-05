@@ -33,7 +33,7 @@ jobs:
           report-branch: ops/fosstars #TODO: Change to main
           report-file: .github/fosstars/fosstars_report.md
           badge-file: .github/fosstars/fosstars_badge.svg
-#          token: "${{ secrets.GITHUB_TOKEN }}"
+          token: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Move JSON to Fosstars folder
         id: move_json_to_fosstars_folder
