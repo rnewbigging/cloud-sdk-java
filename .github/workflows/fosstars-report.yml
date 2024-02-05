@@ -7,26 +7,12 @@ on:
 jobs:
   create_fosstars_report:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
+    uses: actions/checkout@v3
+#    permissions:
+#      contents: write
     outputs:
       json_moved: ${{ steps.move_json_to_fosstars_folder.outputs.json_moved }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          token: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Prepare git
-        run: |
-          git config --global user.email "rachael.newbigging@sap.com"
-          git config --global user.name "rnewbigging"
-
-#      - name: Test File Creation
-#        run: |
-#          touch fosstars_rating.json
-
       - name: Create Fosstars report
         uses: SAP/fosstars-rating-core-action@v1.14.0
         with:
@@ -42,7 +28,28 @@ jobs:
             echo "File exists."
             mv fosstars_rating.json .github/fosstars/
             echo "json_moved=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "File does not exist."
+            echo "json_moved=false" >> "$GITHUB_OUTPUT"
+          fi
 
+  commit_and_push_changes:
+      runs-on: ubuntu-latest
+      needs: create_fosstars_report
+      if: needs.create_fosstars_report.outputs.json_moved == 'true'
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+            token: "${{ secrets.GITHUB_TOKEN }}"
+
+        - name: Prepare git
+          run: |
+            git config --global user.email "rachael.newbigging@sap.com"
+            git config --global user.name "rnewbigging"
+
+        - name: Commit and push
+          run: |
             echo "Working Repository: $GITHUB_REPOSITORY"
             echo "Current Branch: $GITHUB_REF"
             whoami 
@@ -53,10 +60,6 @@ jobs:
           
             git status
             git push origin ops/fosstars
-          else
-            echo "File does not exist."
-            echo "json_moved=false" >> "$GITHUB_OUTPUT"
-          fi
 
 #  open_and_merge_pull_request:
 #    runs-on: ubuntu-latest
