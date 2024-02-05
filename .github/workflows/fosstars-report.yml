@@ -8,7 +8,7 @@ jobs:
   create_fosstars_report:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.move_json_to_fosstars_folder.outputs }}
+      json_moved: ${{ steps.move_json_to_fosstars_folder.outputs.moved }}
     steps:
       - uses: actions/checkout@v3
 
@@ -26,16 +26,16 @@ jobs:
           if [ -e fosstars_rating.json ]; then
             echo "File exists."
             mv fosstars_rating.json .github/fosstars/
-            echo "move_json_to_fosstars_folder=true" >> "$GITHUB_OUTPUT"
+            echo "moved=true" >> "$GITHUB_OUTPUT"
           else
             echo "File does not exist."
-            echo "move_json_to_fosstars_folder=false" >> "$GITHUB_OUTPUT"
+            echo "moved=false" >> "$GITHUB_OUTPUT"
           fi
 
   open_and_merge_pull_request:
     runs-on: ubuntu-latest
     needs: create_fosstars_report
-    if: needs.create_fosstars_report.outputs.move_json_to_fosstars_folder == 'true'
+    if: needs.create_fosstars_report.outputs.json_moved == 'true'
     steps:
       - uses: actions/checkout@v3
         with:
