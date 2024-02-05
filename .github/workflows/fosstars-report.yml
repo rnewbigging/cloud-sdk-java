@@ -7,27 +7,48 @@ on:
 jobs:
   create_fosstars_report:
     runs-on: ubuntu-latest
+    outputs: ${{ steps.move_json_to_fosstars_folder.outputs }}
     name: "Security rating"
     steps:
       - uses: actions/checkout@v3
-      - uses: SAP/fosstars-rating-core-action@v1.14.0
+      - name: "Create Fosstars report"
+        uses: SAP/fosstars-rating-core-action@v1.14.0
         with:
-          report-branch: main
+          report-branch: ops/fosstars #TODO: Change to main
           report-file: .github/fosstars/fosstars_report.md
           badge-file: .github/fosstars/fosstars_badge.svg
           token: "${{ secrets.GITHUB_TOKEN }}"
 
-  move_json_to_fosstars_folder:
-    runs-on: ubuntu-latest
-    needs: create_fosstars_report
-    name: "Move JSON to Fosstars folder"
-    steps:
-      - uses: actions/checkout@v3
       - name: "Move JSON to Fosstars folder"
+        id: move_json_to_fosstars_folder
         run: |
           if [ -e fosstars_rating.json ]; then
             echo "File exists."
             mv fosstars_rating.json .github/fosstars/
+            echo "::set-output name=move_json_to_fosstars_folder::true"
           else
             echo "File does not exist."
+            echo "::set-output name=move_json_to_fosstars_folder::false"
           fi
+
+  open_and_merge_pull_request:
+    runs-on: ubuntu-latest
+    needs: create_fosstars_report
+    steps:
+      - uses: actions/checkout@v3
+        if: steps.create_fosstars_report.outputs.move_json_to_fosstars_folder == 'true'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "cloudsdk@sap.com"
+          git config --global user.name "SAP Cloud SDK Bot"
+          git checkout -b move-fosstars-rating-json
+          git add .github/fosstars/
+          git commit -m "Move fosstars_rating.json to .github/fosstars/"
+          git push --set-upstream origin move-fosstars-rating-json
+      - name: Open pull request
+        run: |
+          gh pr create --title "Move fosstars_rating.json" --body "Move fosstars_rating.json to .github/fosstars/"
+          gh pr review --approve
+          gh pr merge --auto --squash move-fosstars-rating-json
