@@ -49,11 +49,11 @@ jobs:
             whoami 
             git status
 
-            git add .github/fosstars/fosstars_rating.json
+            git add .github/fosstars/fosstars_rating.json fosstars_rating.json
             git commit -m "Move fosstars_rating.json to .github/fosstars/"
           
             git status
-            git push rnewbigging ops/fosstars
+            git push rnewbigging/cloud-sdk-java ops/fosstars
           else
             echo "File does not exist."
             echo "json_moved=false" >> "$GITHUB_OUTPUT"
