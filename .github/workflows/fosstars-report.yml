@@ -26,18 +26,18 @@ jobs:
           if [ -e fosstars_rating.json ]; then
             echo "File exists."
             mv fosstars_rating.json .github/fosstars/
-            echo "::set-output name=move_json_to_fosstars_folder::true"
+            echo "move_json_to_fosstars_folder=true" >> "$GITHUB_OUTPUT"
           else
             echo "File does not exist."
-            echo "::set-output name=move_json_to_fosstars_folder::false"
+            echo "move_json_to_fosstars_folder=false" >> "$GITHUB_OUTPUT"
           fi
 
   open_and_merge_pull_request:
     runs-on: ubuntu-latest
     needs: create_fosstars_report
+    if: needs.create_fosstars_report.outputs.move_json_to_fosstars_folder == 'true'
     steps:
       - uses: actions/checkout@v3
-        if: steps.create_fosstars_report.outputs.move_json_to_fosstars_folder == 'true'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Commit and push changes
