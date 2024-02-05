@@ -7,10 +7,11 @@ on:
 jobs:
   create_fosstars_report:
     runs-on: ubuntu-latest
-    outputs: ${{ steps.move_json_to_fosstars_folder.outputs }}
-    name: "Security rating"
+    outputs:
+      output1: ${{ steps.move_json_to_fosstars_folder.outputs }}
     steps:
       - uses: actions/checkout@v3
+
       - name: "Create Fosstars report"
         uses: SAP/fosstars-rating-core-action@v1.14.0
         with:
