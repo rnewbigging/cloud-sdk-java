@@ -19,7 +19,7 @@ jobs:
         id: fosstars_rating
         uses: SAP/fosstars-rating-core-action@v1.14.0
         with:
-          report-branch: ops/fosstars
+          report-branch: main
           report-file: .github/fosstars/fosstars_report.md
           badge-file: .github/fosstars/fosstars_badge.svg
           token: "${{ secrets.GITHUB_TOKEN }}"
@@ -34,14 +34,12 @@ jobs:
   move_json_file:
     runs-on: ubuntu-latest
     needs: create_fosstars_report
-    env:
-      JSON_FILE: ${{ needs.create_fosstars_report.outputs.json_file }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          ref: ops/fosstars
+          ref: main
 
       - name: Prepare git
         run: |
@@ -57,13 +55,13 @@ jobs:
         run: |
           if [ -e fosstars_rating.json ]; then
             echo "File exists."
-            git pull origin ops/fosstars
+            git pull origin main
             mv fosstars_rating.json .github/fosstars/
             
             git add .github/fosstars/fosstars_rating.json fosstars_rating.json
             git commit -m "Move fosstars_rating.json to .github/fosstars/"
 
-            git push origin ops/fosstars
+            git push origin main
           else
             echo "File does not exist."
           fi
