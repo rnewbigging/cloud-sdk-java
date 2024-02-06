@@ -44,7 +44,7 @@ jobs:
 
       - name: Move fosstars_rating.json
         run: |
-          echo $JSON_FILE
+          echo "$JSON_FILE"
           if [ -e $JSON_FILE ]; then
             echo "File exists."
             git pull origin ops/fosstars-report
