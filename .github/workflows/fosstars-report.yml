@@ -24,9 +24,11 @@ jobs:
           badge-file: .github/fosstars/fosstars_badge.svg
           token: "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Set output
-        run: |
-          echo fosstars_rating.json >> "$GITHUB_OUTPUT"
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: json_report
+          path: fosstars_rating.json
           
 
   move_json_file:
@@ -46,15 +48,19 @@ jobs:
           git config --global user.email "rachael.newbigging@sap.com"
           git config --global user.name "rnewbigging"
 
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: json_report
+
       - name: Move fosstars_rating.json
         run: |
-          echo "$JSON_FILE"
-          if [ -e $JSON_FILE ]; then
+          if [ -e fosstars_rating.json]; then
             echo "File exists."
             git pull origin ops/fosstars-report
-            mv $JSON_FILE .github/fosstars/
+            mv fosstars_rating.json .github/fosstars/
             
-            git add .github/fosstars/$JSON_FILE $JSON_FILE
+            git add .github/fosstars/fosstars_rating.json fosstars_rating.json
             git commit -m "Move fosstars_rating.json to .github/fosstars/"
 
             git push origin ops/fosstars-report
