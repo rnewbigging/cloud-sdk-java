@@ -23,6 +23,8 @@ jobs:
           report-file: .github/fosstars/fosstars_report.md
           badge-file: .github/fosstars/fosstars_badge.svg
           token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Set output
         run: |
           echo fosstars_rating.json >> "$GITHUB_OUTPUT"
           
