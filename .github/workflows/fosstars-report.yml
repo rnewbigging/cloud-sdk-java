@@ -41,10 +41,10 @@ jobs:
           token: "${{ secrets.GITHUB_TOKEN }}"
           ref: ops/fosstars
 
-#      - name: Prepare git
-#        run: |
-#          git config --global user.email "rachael.newbigging@sap.com"
-#          git config --global user.name "rnewbigging"
+      - name: Prepare git
+        run: |
+          git config --global user.email "rachael.newbigging@sap.com"
+          git config --global user.name "rnewbigging"
 
       - name: Download Artifact
         uses: actions/download-artifact@v4
