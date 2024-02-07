@@ -7,6 +7,8 @@ on:
 jobs:
   create_fosstars_report:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       json_file: ${{ steps.fosstars_rating.outputs.json_file }}
     steps:
