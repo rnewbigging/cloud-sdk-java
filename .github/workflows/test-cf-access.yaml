@@ -1,7 +1,9 @@
 name: "cf-test"
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - ops/e2e-action
 
 env:
   BASIC_AUTH_ROUTE: "https://scp-cf-spring-e2e-test.internal.cfapps.sap.hana.ondemand.com"
