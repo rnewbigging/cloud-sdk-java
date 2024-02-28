@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: "Test CF Connection"
         run: |
-          response=$(curl --fail -s ${{ BASIC_AUTH_ROUTE }}/${{ ODATA_PATH_AND_DESTINATIONS }})
+          response=$(curl --fail -s ${BASIC_AUTH_ROUTE}/${ODATA_PATH_AND_DESTINATIONS})
           exit_code=$?
 
           if [ $exit_code -ne 0 ]; then
