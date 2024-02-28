@@ -23,3 +23,6 @@ jobs:
             echo "Failure response body:"
             echo "$response"
           fi
+          
+          echo "Exit code of curl command: $exit_code"
+          exit $exit_code
