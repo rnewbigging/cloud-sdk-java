@@ -1,8 +1,12 @@
 name: "cf-test"
 
+on:
+  workflow_dispatch:
+
 env:
   BASIC_AUTH_ROUTE: "https://scp-cf-spring-e2e-test.internal.cfapps.sap.hana.ondemand.com"
   ODATA_PATH_AND_DESTINATIONS: "odata-v2?destination=QW9-HTTP-BASIC&destination=QM7-HTTP-BASIC"
+
 jobs:
   curl-cf:
     runs-on: ubuntu-latest
