@@ -15,13 +15,7 @@ jobs:
     steps:
       - name: "Test CF Connection"
         run: |
-          cleanup_and_exit() {
-            exit_code=$?
-            echo "Script exited with exit code: $exit_code"
-            exit $exit_code
-          }
-          
-          trap cleanup_and_exit EXIT
+          set +e
           
           echo "Testing connection..."
           response=$(curl --fail -s ${BASIC_AUTH_ROUTE}/${ODATA_PATH_AND_DESTINATIONS})
@@ -32,3 +26,5 @@ jobs:
             echo "Failure response body:"
             echo "$response"
           fi
+          
+          exit $exit_code
